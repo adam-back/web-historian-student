@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
-  <script src="../../node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
-  <script src="app.js" type="text/javascript"></script>
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 </head>
 <body>
   Enter a URL here:
@@ -13,7 +12,31 @@
   </form>
   <script>
     $(document).ready(function() {
-      app.initialize();
+      $('button').on('click', function() {
+        app.send($('input').val());
+      });
+
+      var app = {
+        initialize: function() {
+        },
+
+        //post requests
+        send: function(website) {
+          $.ajax({
+            url: 'http://127.0.0.1:3000/',
+            data: JSON.stringify(website),
+            type: "POST",
+            contentType: "application/json",
+            success: function(data) {
+              //depending on if the page is cached, send to loading or cached page,
+              console.log('Post request successful.');
+            },
+            error: function(error) {
+              console.log('Post request unsuccessful.');
+            }
+          })
+        }
+      };
     });
   </script>
 </body>

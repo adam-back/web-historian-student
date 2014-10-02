@@ -7,14 +7,19 @@ var app = {
   },
 
   //post requests
-  send: function(val) {
+  send: function(website) {
     $.ajax({
       url: 'http://127.0.0.1:3000/',
-      data: val,
+      data: JSON.stringify(website),
       type: "POST",
-      success:
+      contentType: "application/json",
+      success: function(data) {
         //depending on if the page is cached, send to loading or cached page,
-      error:
+        console.log('Post request successful.');
+      },
+      error: function(error) {
+        console.log('Post request unsuccessful.');
+      }
     })
   }
 }

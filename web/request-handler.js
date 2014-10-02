@@ -39,22 +39,19 @@ exports.handleRequest = function (req, res) {
         res.end();
     }
   } else if (req.method === "POST") {
-    var url = "";
-    req.on('data', function(chunk){
-      url += chunk.slice(4);
-    });
-
+    res.writeHead(302, httpHelpers.headers);
+    res.end("success");
     //write the url to the sites.txt
-    fs.appendFile('test/testdata/sites.txt', url + '\n',
-      function(err, data) {
-        if(err) {
-          return "URL was not appended."
-        } else {
-          //return a header of 302, res.end()
-          res.writeHead(302, httpHelpers.headers);
-          res.end();
-        }
-      })
+    // fs.appendFile('test/testdata/sites.txt', url + '\n',
+    //   function(err, data) {
+    //     if(err) {
+    //       return "URL was not appended."
+    //     } else {
+    //       //return a header of 302, res.end()
+    //       res.writeHead(302, httpHelpers.headers);
+    //       res.end();
+    //     }
+    //   })
   }
 };
 
