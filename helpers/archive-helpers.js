@@ -25,17 +25,22 @@ exports.initialize = function(pathsObj){
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
+//go through sites.txt
 exports.readListOfUrls = function(){
 };
 
+//is it in sites.txt
 exports.isUrlInList = function(){
 };
 
+//add url to sites.txt
 exports.addUrlToList = function(){
 };
 
+//is it already a document
 exports.isURLArchived = function(){
 };
 
+//download document file
 exports.downloadUrls = function(){
 };
