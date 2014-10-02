@@ -1,6 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var sites = require('../sites/sites.txt'); //fix
+var httpHelpers = require('./http-helpers.js');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -26,11 +28,26 @@ exports.initialize = function(pathsObj){
 // modularize your code. Keep it clean!
 
 //go through sites.txt
-exports.readListOfUrls = function(){
+exports.readListOfUrls = function(target){
+  fs.readFile(__dirname + '../archives/sites/sites.txt', 'utf8',
+    function(err, data) {
+      if(err) {
+        return;
+      } else {
+        var data = data.toString();
+        exports.isUrlInList(data, target);
+      }
+    });
 };
 
 //is it in sites.txt
-exports.isUrlInList = function(){
+exports.isUrlInList = function(data, target) {
+  var regEx = '/' + target + '/';
+  if(data.match(regEx) === null) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 //add url to sites.txt
