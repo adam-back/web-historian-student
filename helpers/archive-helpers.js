@@ -43,16 +43,28 @@ exports.readListOfUrls = function(target, res){
 //is it in sites.txt
 exports.isUrlInList = function(data, target, res) {
   var re = new RegExp(target.slice(1));
-  if(data.match(re) !== null) {
+  console.log('RE', re);
+  console.log(data.match(re));
+  if(data.match(re) === null) {
+    res.writeHead(302, httpHelpers.headers);
+    exports.addUrlToList(target);
+    res.end();
+  } else {
     res.writeHead(200, httpHelpers.headers);
     res.end(data);
-    // return data;
+
   }
 };
 
 //add url to sites.txt
-exports.addUrlToList = function(){
-};
+exports.addUrlToList = function(url){
+  fs.appendFile('archives/sites.txt', url + '\n',
+    function(err){
+      if (err) {
+        return "nothing sent";
+      }
+    });
+  };
 
 //is it already a document
 exports.isURLArchived = function(){

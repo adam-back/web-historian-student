@@ -26,5 +26,11 @@ exports.handleRequest = function (req, res) {
       res.end("Error: 404 Not Found.");
     }
   }
+  else if (req.method === "POST") {
+    res.on('data', function(){
+      console.log("req.url", req)
+    })
+    archive.readListOfUrls(req.url, res)
+  }
   // res.end(archive.paths.list);
 };
