@@ -1,5 +1,5 @@
 var path = require('path');
-var archive = require('../helpers/archive-helpers');
+var archive = require('../helpers/archive-helpers.js');
 var httpHelpers = require('./http-helpers.js');
 var url = require('url');
 var fs = require('fs');
@@ -7,8 +7,8 @@ var fs = require('fs');
 var loadPage = ('../web/public/index.html');
 
 exports.handleRequest = function (req, res) {
-  if (req.url === "/") {
-    if (req.method === "GET") {
+  if (req.method === "GET") {
+    if (req.url === "/") {
       fs.readFile(__dirname + '/public/index.html', 'utf8',
         function(err, data) {
           if(err) {
@@ -19,6 +19,11 @@ exports.handleRequest = function (req, res) {
             res.end(data);
           }
         });
+    } else if (archive.readListOfUrls(req.url, res)) {
+      archive.readListOfUrls(req.url, res);
+    } else {
+      res.writeHead(404, httpHelpers.headers);
+      res.end("Error: 404 Not Found.");
     }
   }
   // res.end(archive.paths.list);
