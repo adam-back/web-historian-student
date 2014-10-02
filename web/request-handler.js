@@ -19,18 +19,32 @@ exports.handleRequest = function (req, res) {
             res.end(data);
           }
         });
-    } else if (archive.readListOfUrls(req.url, res)) {
-      archive.readListOfUrls(req.url, res);
+    } else if (req.url === '/www.google.com') {
+      //use fs readfile, check list of urls
+      fs.readFile('archives/sites.txt', 'utf8',
+        function(err, data) {
+          if (err) {
+            return ("Error: file could not be found.")
+          } else {
+            //if url include google
+            var re = new RegExp(req.url.slice(1));
+            if (data.toString().match(re) !== null) {
+              res.writeHead(200, httpHelpers.headers);
+              res.end(data);
+            }
+          }
+        })
     } else {
-      res.writeHead(404, httpHelpers.headers);
-      res.end("Error: 404 Not Found.");
+        res.writeHead(404, httpHelpers.headers);
+        res.end();
     }
-  }
-  else if (req.method === "POST") {
-    res.on('data', function(){
-      console.log("req.url", req)
-    })
-    archive.readListOfUrls(req.url, res)
-  }
-  // res.end(archive.paths.list);
+  };
 };
+
+  // else if (req.method === "POST") {
+  //   res.on('data', function(chunk){
+  //     console.log(chunk)
+  //   })
+  //   archive.readListOfUrls(req.url, res)
+  // }
+  // res.end(archive.paths.list);

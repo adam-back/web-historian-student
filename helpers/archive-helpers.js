@@ -32,7 +32,8 @@ exports.readListOfUrls = function(target, res){
   fs.readFile('archives/sites.txt', 'utf8',
     function(err, data) {
       if(err) {
-        return "nothing found";
+        res.writeHead(404, httpHelpers.headers);
+        res.end();
       } else {
         var data = data.toString();
         exports.isUrlInList(data, target, res);
@@ -43,8 +44,6 @@ exports.readListOfUrls = function(target, res){
 //is it in sites.txt
 exports.isUrlInList = function(data, target, res) {
   var re = new RegExp(target.slice(1));
-  console.log('RE', re);
-  console.log(data.match(re));
   if(data.match(re) === null) {
     res.writeHead(302, httpHelpers.headers);
     exports.addUrlToList(target);
