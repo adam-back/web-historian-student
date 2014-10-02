@@ -28,41 +28,52 @@ exports.initialize = function(pathsObj){
 // modularize your code. Keep it clean!
 
 //go through sites.txt
-exports.readListOfUrls = function(target, res){
-  fs.readFile('archives/sites.txt', 'utf8',
-    function(err, data) {
-      if(err) {
-        res.writeHead(404, httpHelpers.headers);
-        res.end();
-      } else {
-        var data = data.toString();
-        exports.isUrlInList(data, target, res);
-      }
-    });
+exports.readListOfUrls = function(callback){
+  fs.readFile('test/testdata/sites.txt', 'utf8', function(err, data) {
+    if(err) {
+      return "Error: file could not be read.";
+    } else {
+
+    }
+  })
+
+
+
+
+  // fs.readFile('archives/sites.txt', 'utf8',
+  //   function(err, data) {
+  //     if(err) {
+  //       res.writeHead(404, httpHelpers.headers);
+  //       res.end();
+  //     } else {
+  //       var data = data.toString();
+  //       exports.isUrlInList(data, target, res);
+  //     }
+  //   });
 };
 
 //is it in sites.txt
 exports.isUrlInList = function(data, target, res) {
-  var re = new RegExp(target.slice(1));
-  if(data.match(re) === null) {
-    res.writeHead(302, httpHelpers.headers);
-    exports.addUrlToList(target);
-    res.end();
-  } else {
-    res.writeHead(200, httpHelpers.headers);
-    res.end(data);
+  // var re = new RegExp(target.slice(1));
+  // if(data.match(re) === null) {
+  //   res.writeHead(302, httpHelpers.headers);
+  //   exports.addUrlToList(target);
+  //   res.end();
+  // } else {
+  //   res.writeHead(200, httpHelpers.headers);
+  //   res.end(data);
 
-  }
+  // }
 };
 
 //add url to sites.txt
 exports.addUrlToList = function(url){
-  fs.appendFile('archives/sites.txt', url + '\n',
-    function(err){
-      if (err) {
-        return "nothing sent";
-      }
-    });
+  // fs.appendFile('archives/sites.txt', url + '\n',
+  //   function(err){
+  //     if (err) {
+  //       return "nothing sent";
+  //     }
+  //   });
   };
 
 //is it already a document

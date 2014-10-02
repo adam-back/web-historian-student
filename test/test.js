@@ -86,11 +86,19 @@ describe("Node Server Request Listener Function", function() {
 });
 
 describe("html fetcher helpers", function(){
+  it("should have a 'readListOfUrls' function", function(){
+    expect(typeof archive.readListOfUrls).to.equal('function');
+  });
 
-  it("should have a 'readListOfUrls' function", function(done){
+  it("should have a 'downloadUrls' function", function(){
+    expect(typeof archive.downloadUrls).to.equal('function');
+  });
+
+  it("should have a working 'readListOfUrls' function", function(done){
     var urlArray = ["example1.com", "example2.com"];
     var resultArray;
 
+    //should write to testdata/sites.txt the array with new lines
     fs.writeFileSync(archive.paths.list, urlArray.join("\n"));
     archive.readListOfUrls(function(urls){
       resultArray = urls;
@@ -104,8 +112,5 @@ describe("html fetcher helpers", function(){
     });
   });
 
-  it("should have a 'downloadUrls' function", function(){
-    expect(typeof archive.downloadUrls).to.equal('function');
-  });
 
 });

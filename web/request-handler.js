@@ -4,7 +4,7 @@ var httpHelpers = require('./http-helpers.js');
 var url = require('url');
 var fs = require('fs');
 // require more modules/folders here!
-var loadPage = ('../web/public/index.html');
+var loadPage = ('../web/public/loading.html');
 
 exports.handleRequest = function (req, res) {
   if (req.method === "GET") {
